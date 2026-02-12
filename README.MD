@@ -1,21 +1,16 @@
-🚀 Quantum NFT: High-Performance Batch 
-MinterQuantum NFT is a professional-grade tool built for the Solana 2026 ecosystem. Leveraging Metaplex MPL-Core and Arweave (Turbo SDK), it allows for high-speed, cost-efficient batch minting with built-in simulation protection.
-🛠 1. Technical StackChain: Solana (Mainnet-Beta/Devnet)Standard: Metaplex MPL-Core (Ultra-low rent)Storage: Arweave via ArDrive Turbo (Permanent, Immutable)Performance: Parallelized Batching via ES Modules
-📦 2. InstallationClone the repository and install the core dependencies:Bashnpm install
-Note: Ensure your package.json includes "type": "module" to support the modern ESM syntax used in this engine.
-🔑 3. Wallet Setup (Security First)To interact with the blockchain, the script requires a keypair.json. If you are exporting a private key from Phantom or Solflare (Base58 format), you must convert it to a Byte Array first.Convert Base58 to Secret Key:Open PKConverter.js in your root directory.Paste your Base58 string into the base58String variable.Run the converter:Bashnode PKConverter.js
-This generates a secure keypair.json. Never share this file or push it to GitHub.
-📂 4. Project StructureFor batch operations, organize your assets as follows:PlaintextquantumNFT-main/
-├── images/             # All JPG/PNG assets
-│   ├── 1.jpeg
-│   └── 2.jpeg
-├── nfts/               # Metadata JSONs
-│   ├── 1.json          # Points to images/1.jpeg
-│   └── 2.json
-├── batch-mint.js       # The Core Engine
-└── keypair.json        # Your signing authority
-⚙️ 5. ConfigurationEdit the CONFIG object in batch-mint.js to tune your performance:ParameterPurposeIS_SIMULATIONSet to true to test logic/metadata without spending SOL.BATCH_SIZESet to 3-5 to process multiple assets in parallel.PRIORITY_FEEMicro-lamports to ensure transactions land during congestion.ROYALTY_PERCENTAGEDefault royalty for the collection (e.g., 5 = 5%).
-⚡ 6. ExecutionStep 1: Simulation (Dry Run)Always run in simulation mode first to verify Arweave pathing and metadata structure.Bashnode batch-mint.js
-Step 2: Live MintingOnce simulation looks perfect, set IS_SIMULATION: false in the config and execute.Bashnode batch-mint.js
-📊 7. Alpha EconomicsMetricQuantum (MPL-Core)Legacy StandardsRent (per NFT)~0.0029 SOL~0.022 SOLStoragePermanent (Arweave)Centralized/TemporaryBatch SpeedParallelizedSequential (Slow)Market StatusTensor ReadyVariable
-🛠 TroubleshootingSyntaxError (Named Export): This occurs if the library is CommonJS. The script is pre-configured to handle this via default imports (import pkg from ...).Insufficient Funds: Ensure you have at least 0.05 SOL for a small batch to cover the Arweave "Top-up" and Solana rent.File Not Found: Double-check your imagePath inside each JSON file in the /nfts folder.
+🚀 Quantum NFT: High-Performance 
+Solana Batch MinterQuantum NFT is a professional-grade open-source engine for mass-minting NFTs on the Solana 2026 stack. It utilizes Metaplex MPL-Core—the fastest and cheapest NFT standard on the network—and Arweave via Turbo SDK for permanent, decentralized asset storage.⚡ Key FeaturesMPL-Core Integration: Uses the most efficient Solana NFT standard, reducing on-chain rent costs by ~90% compared to legacy standards.Permanent Storage: Integrated with Arweave (Turbo SDK) to ensure metadata and images are immutable and live forever.Beast Mode Batching: Parallelized processing using ES Modules to maximize throughput.Simulation Guard: Built-in "Simulation Mode" to verify metadata and logic off-chain before committing SOL.Trader Optimized: Includes priority fee configurations to ensure transactions land during high network congestion.🛠 Technical StackComponentTechnologyBlockchainSolana (Mainnet-Beta / Devnet)NFT StandardMetaplex MPL-CoreStorageArweave (via ArDrive Turbo)RuntimeNode.js (ES Modules)
+📦 1. InstallationClone the repository and install the dependencies:Bashgit clone https://github.com/ronrahal/quantumnft.git
+cd quantumnft
+npm install
+🔑 2. Security & Wallet SetupThe engine requires a keypair.json to sign transactions. For security, this file is ignored by Git.Converting Private Keys:If you are using a Base58 string (exported from Phantom/Solflare), use the included converter:Open PKConverter.js.Insert your Base58 string into the base58String variable.Run: node PKConverter.jsThis will generate your secure keypair.json byte array.📂 3. ConfigurationEdit the CONFIG object in batch-mint.js:JavaScriptconst CONFIG = {
+  KEYPAIR_PATH: './keypair.json',
+  METADATA_FOLDER: './nfts',
+  IS_SIMULATION: true, // 🧪 Set to false for LIVE minting
+  BATCH_SIZE: 5,       // ⚡ Concurrent uploads
+  PRIORITY_FEE: 50000, // ⛽ Micro-lamports
+  NETWORK: 'mainnet-beta'
+};
+🚀 4. Deployment WorkflowStep 1: Prepare AssetsPlace your images in /images and your metadata JSON files in /nfts. Ensure each JSON file contains an imagePath pointing to the correct image.Step 2: Run SimulationVerify your paths and metadata without spending SOL:Bashnode batch-mint.js
+Step 3: Go LiveChange IS_SIMULATION to false and execute:Bashnode batch-mint.js
+📈 Economics (Cost per 1k Mints)MetricLegacy StandardMPL-Core (Quantum)On-Chain Rent~22.0 SOL~2.9 SOLStorageVariablePermanent (Arweave)EfficiencySequentialParallelized🛡 License & DisclaimerThis project is open-source under the MIT License.Disclaimer: Use at your own risk. High-frequency minting involves financial costs. Always test on Devnet or in Simulation Mode first.
