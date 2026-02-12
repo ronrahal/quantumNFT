@@ -1,0 +1,20 @@
+{
+  "name": "Solana cNFT",
+  "description": "Solana NFT with 50% royalties",
+  "imagePath": "./images/Solana.jpg",
+  "royaltyPercentage": 50,
+  "attributes": [
+    {
+      "trait_type": "Solana Token",
+      "value": "Violet"
+    },
+    {
+      "trait_type": "Clouds",
+      "value": "Fluffy"
+    },
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "quantum-nft",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "mint-nft.js",
+  "dependencies": {
+    "@ardrive/turbo-sdk": "^1.1.10",
+    "@metaplex-foundation/mpl-core": "^1.1.1",
+    "@metaplex-foundation/umi": "^0.9.1",
+    "@metaplex-foundation/umi-bundle-defaults": "^0.9.1",
+    "bs58": "^6.0.0"
+  }
+}
