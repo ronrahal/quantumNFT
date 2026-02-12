@@ -1,87 +1,14 @@
-# Solana NFT Minting - Complete Guide
-
-## Quick Start
-
-### 1. Install Dependencies
-```bash
-npm install @metaplex-foundation/umi-bundle-defaults @metaplex-foundation/mpl-core @ardrive/turbo-sdk bs58
-```
-
-### 2. Prepare Files
-- Put your **artwork.jpeg** in this folder
-- Put your **keypair.json** (Solana wallet) in this folder
-
-### 3. Configure
-Edit `mint-nft.js` and update the CONFIG section:
-```javascript
-const CONFIG = {
-  KEYPAIR_PATH: './keypair.json',
-  IMAGE_PATH: './artwork.jpeg',
-  NFT_NAME: 'Your NFT Name',
-  NFT_DESCRIPTION: 'Your description',
-  NFT_ATTRIBUTES: [...], // Optional
-  NETWORK: 'mainnet-beta', // or 'devnet' for testing
-  ROYALTY_PERCENTAGE: 5 // 5% royalties
-};
-```
-
-### 4. Run
-```bash
-node mint-nft.js
-```
-
-## Step-by-Step Process
-
-### What the script does:
-
-1. **Loads your wallet** from keypair.json
-2. **Uploads image** to Arweave (permanent decentralized storage)
-3. **Creates metadata** JSON with image link
-4. **Uploads metadata** to Arweave
-5. **Mints NFT** on Solana blockchain using Metaplex Core
-6. **Saves results** to mint-results.json
-
-### Listing on Tensor:
-
-After minting:
-1. Go to https://www.tensor.trade/
-2. Connect the same wallet
-3. Portfolio → NFTs
-4. Find your NFT → Click "List"
-5. Set price and confirm
-
-## Cost Breakdown
-
-- **Image upload**: ~$0.01-0.10 (depending on size)
-- **Metadata upload**: ~$0.001
-- **Minting fee**: ~$0.02 (Solana transaction)
-- **Total**: Usually < $0.15
-
-## Important Notes
-
-- **Test on devnet first** (set NETWORK: 'devnet')
-- Arweave storage is **permanent** (can't delete)
-- Keep your keypair.json **secure** (never share)
-- Minimum SOL balance needed: ~0.1 SOL
-
-## Troubleshooting
-
-**"Insufficient funds"**: Add more SOL to your wallet
-**"Upload failed"**: Check internet connection
-**"Invalid keypair"**: Verify keypair.json format is correct array of 64 numbers
-
-## Advanced: Bulk Minting
-
-For multiple NFTs, create a folder structure:
-```
-metadata/
-├─ 0.json
-├─ 1.json
-├─ 2.json
-images/
-├─ 0.jpeg
-├─ 1.jpeg
-├─ 2.jpeg
-```
-
-Then use Turbo's `uploadFolder()` method for efficient batch uploads.
+🚀 Quantum NFT: High-Performance Batch MinterQuantum NFT is a professional-grade tool built for the Solana 2026 ecosystem. Leveraging Metaplex MPL-Core and Arweave (Turbo SDK), it allows for high-speed, cost-efficient batch minting with built-in simulation protection.🛠 1. Technical StackChain: Solana (Mainnet-Beta/Devnet)Standard: Metaplex MPL-Core (Ultra-low rent)Storage: Arweave via ArDrive Turbo (Permanent, Immutable)Performance: Parallelized Batching via ES Modules📦 2. InstallationClone the repository and install the core dependencies:Bashnpm install
+Note: Ensure your package.json includes "type": "module" to support the modern ESM syntax used in this engine.🔑 3. Wallet Setup (Security First)To interact with the blockchain, the script requires a keypair.json. If you are exporting a private key from Phantom or Solflare (Base58 format), you must convert it to a Byte Array first.Convert Base58 to Secret Key:Open PKConverter.js in your root directory.Paste your Base58 string into the base58String variable.Run the converter:Bashnode PKConverter.js
+This generates a secure keypair.json. Never share this file or push it to GitHub.📂 4. Project StructureFor batch operations, organize your assets as follows:PlaintextquantumNFT-main/
+├── images/             # All JPG/PNG assets
+│   ├── 1.jpeg
+│   └── 2.jpeg
+├── nfts/               # Metadata JSONs
+│   ├── 1.json          # Points to images/1.jpeg
+│   └── 2.json
+├── batch-mint.js       # The Core Engine
+└── keypair.json        # Your signing authority
+⚙️ 5. ConfigurationEdit the CONFIG object in batch-mint.js to tune your performance:ParameterPurposeIS_SIMULATIONSet to true to test logic/metadata without spending SOL.BATCH_SIZESet to 3-5 to process multiple assets in parallel.PRIORITY_FEEMicro-lamports to ensure transactions land during congestion.ROYALTY_PERCENTAGEDefault royalty for the collection (e.g., 5 = 5%).⚡ 6. ExecutionStep 1: Simulation (Dry Run)Always run in simulation mode first to verify Arweave pathing and metadata structure.Bashnode batch-mint.js
+Step 2: Live MintingOnce simulation looks perfect, set IS_SIMULATION: false in the config and execute.Bashnode batch-mint.js
+📊 7. Alpha EconomicsMetricQuantum (MPL-Core)Legacy StandardsRent (per NFT)~0.0029 SOL~0.022 SOLStoragePermanent (Arweave)Centralized/TemporaryBatch SpeedParallelizedSequential (Slow)Market StatusTensor ReadyVariable🛠 TroubleshootingSyntaxError (Named Export): This occurs if the library is CommonJS. The script is pre-configured to handle this via default imports (import pkg from ...).Insufficient Funds: Ensure you have at least 0.05 SOL for a small batch to cover the Arweave "Top-up" and Solana rent.File Not Found: Double-check your imagePath inside each JSON file in the /nfts folder.
